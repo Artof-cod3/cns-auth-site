@@ -1,3 +1,21 @@
+<?php
+session_start();
+require 'db.php';
+$msg = "";
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $username = trim($_POST["username"]);
+    $stmt = $conn->prepare("SELECT password FROM users WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $stmt->bind_result($hash);
+    if ($stmt->fetch() && password_verify($_POST["password"], $hash)) {
+        $_SESSION["user"] = $username;
+        header("Location: welcome.php");
+        exit;
+    }
+    $msg = "Invalid username or password.";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +29,9 @@
     <div class="card shadow">
       <div class="card-body">
         <h3 class="text-center mb-4">CNS Student Portal - Login</h3>
+        <?php if ($msg): ?>
+          <div class="alert alert-danger"><?= htmlspecialchars($msg) ?></div>
+        <?php endif; ?>
         <form method="POST" action="login.php">
           <div class="mb-3"><input class="form-control" name="username" placeholder="Username" required></div>
           <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password" required></div>

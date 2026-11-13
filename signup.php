@@ -1,3 +1,24 @@
+<?php
+require 'db.php';
+$msg = "";
+$msg_class = "";
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $username  = trim($_POST["username"]);
+    $email     = trim($_POST["email"]);
+    $full_name = trim($_POST["full_name"]);
+    $password  = password_hash($_POST["password"], PASSWORD_DEFAULT);
+
+    $stmt = $conn->prepare("INSERT INTO users (username, email, full_name, password) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $username, $email, $full_name, $password);
+    if ($stmt->execute()) {
+        $msg = "Registration successful! You can now log in.";
+        $msg_class = "alert-success";
+    } else {
+        $msg = "Error: username may already exist.";
+        $msg_class = "alert-danger";
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +32,9 @@
     <div class="card shadow">
       <div class="card-body">
         <h3 class="text-center mb-4">CNS Student Portal - Sign Up</h3>
+        <?php if ($msg): ?>
+          <div class="alert <?= $msg_class ?>"><?= htmlspecialchars($msg) ?></div>
+        <?php endif; ?>
         <form method="POST" action="signup.php">
           <div class="mb-3"><input class="form-control" name="username" placeholder="Username" required></div>
           <div class="mb-3"><input class="form-control" name="full_name" placeholder="Full name" required></div>
