@@ -16,6 +16,7 @@ if (!isset($_SESSION["user"])) { header("Location: login.php"); exit; }
       <h3>Login successful!</h3>
       <p>Welcome, <strong><?= htmlspecialchars($_SESSION["user"]) ?></strong></p>
     </div>
+    <a href="feedback.php" class="btn btn-primary me-2">Feedback</a>
     <a href="logout.php" class="btn btn-outline-secondary">Logout</a>
   </div>
 </body>
