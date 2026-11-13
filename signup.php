@@ -10,7 +10,7 @@
   <div class="container mt-5" style="max-width:450px;">
     <div class="card shadow">
       <div class="card-body">
-        <h3 class="text-center mb-4">Create an Account</h3>
+        <h3 class="text-center mb-4">CNS Student Portal - Sign Up</h3>
         <form method="POST" action="signup.php">
           <div class="mb-3"><input class="form-control" name="username" placeholder="Username" required></div>
           <div class="mb-3"><input class="form-control" name="full_name" placeholder="Full name" required></div>

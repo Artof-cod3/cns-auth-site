@@ -10,7 +10,7 @@
   <div class="container mt-5" style="max-width:450px;">
     <div class="card shadow">
       <div class="card-body">
-        <h3 class="text-center mb-4">Login</h3>
+        <h3 class="text-center mb-4">CNS Student Portal - Login</h3>
         <form method="POST" action="login.php">
           <div class="mb-3"><input class="form-control" name="username" placeholder="Username" required></div>
           <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password" required></div>
